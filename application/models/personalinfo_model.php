@@ -37,5 +37,6 @@ class personalinfo_model extends CI_Model
     
 	function save() {
 		$this->db->insert('personalinfo', $this);
+		return $this->db->insert_id();
 	}
 }

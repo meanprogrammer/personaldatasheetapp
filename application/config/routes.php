@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "addpds";
+$route['default_controller'] = "pds";
 $route['404_override'] = '';
 
 

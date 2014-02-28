@@ -1,1 +1,1 @@
-<h1>Saved!</h1>
+<h1>Saved! <?php echo $id;?></h1>
