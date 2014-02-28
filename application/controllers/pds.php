@@ -52,6 +52,11 @@ class Pds extends CI_Controller {
 		$this->saveeducationalbackground($id);
 		$this->savecivilserviceeligibility($id);
 		$this->saveworkexperience($id);
+		$this->savevoluntarywork($id);
+		$this->savetrainingprogram($id);
+		$this->saveotherinfo($id);
+		$this->savereference($id);
+		$this->savequestionaire($id);
 		$this->load->view('save_pds', $data);
 	}
 	
@@ -135,8 +140,8 @@ class Pds extends CI_Controller {
 		foreach ($workexp as $we) {
 			$this->load->model('workexperience_model');
 			$this->workexperience_model->ParentID = $parentid;
-			$this->workexperience_model->StartDate = $we->workstart;
-			$this->workexperience_model->EndDate = $we->workend;
+			$this->workexperience_model->StartDate = date('Y-m-d', strtotime($we->workstart));
+			$this->workexperience_model->EndDate = date('Y-m-d', strtotime($we->workend));
 			$this->workexperience_model->PositionTitle = $we->positiontitle;
 			$this->workexperience_model->CompanyName = $we->agencyname;
 			$this->workexperience_model->MonthlySalary = $we->monthlysalary;
@@ -156,13 +161,92 @@ class Pds extends CI_Controller {
 			$this->load->model('voluntaryworks_model');
 			$this->voluntaryworks_model->ParentID = $parentid;
 			$this->voluntaryworks_model->NameAddressOfOrg = $vw->voluntaryworkorg;
-			$this->voluntaryworks_model->StartDate = $vw->voluntaryworkfrom;
-			$this->voluntaryworks_model->EndDate = $vw->voluntaryworkto;
+			$this->voluntaryworks_model->StartDate = date('Y-m-d', strtotime($vw->voluntaryworkfrom));
+			$this->voluntaryworks_model->EndDate = date('Y-m-d', strtotime($vw->voluntaryworkto));
 			$this->voluntaryworks_model->NumberOfHours = $vw->voluntaryworkhours;
 			$this->voluntaryworks_model->PositionOrNatureOfWork = $vw->voluntaryworknature;
 						
 			$this->voluntaryworks_model->save();
 		}
+	}
+	
+	function savetrainingprogram($parentid) {
+		$json = $this->input->post('trainingprogramhidden');
+		$training = json_decode($json);
+		
+		foreach ($training as $tp) {
+			$this->load->model('trainingprograms_model');
+			$this->trainingprograms_model->ParentID = $parentid;
+			$this->trainingprograms_model->TrainingTitle = $tp->titleofseminar;
+			$this->trainingprograms_model->StartDate = date('Y-m-d', strtotime($tp->trainingfrom));
+			$this->trainingprograms_model->EndDate = date('Y-m-d', strtotime($tp->trainingto));
+			$this->trainingprograms_model->NumberOfHours = $tp->traininghours;
+			$this->trainingprograms_model->ConductedSponsoredBy = $tp->trainingconducted;
+					
+			$this->trainingprograms_model->save();
+		}
+	}
+	
+	function saveotherinfo($parentid) {
+		$json = $this->input->post('otherinfohidden');
+		$otherinfo = json_decode($json);
+		
+		foreach ($otherinfo as $oi) {
+			$this->load->model('otherinformation_model');
+			$this->otherinformation_model->ParentID = $parentid;
+			$this->otherinformation_model->SpecicalSkillsHobbies = $oi->specialskills;
+			$this->otherinformation_model->NonAcademicDistinctionRecognition = $oi->nonacademicdistinction;
+			$this->otherinformation_model->OrganizationMembership = $oi->membershipassoc;
+					
+			$this->otherinformation_model->save();
+		}
+	}
+	
+	function savereference($parentid) {
+		$json = $this->input->post('referenceshidden');
+		$references = json_decode($json);
+		
+		foreach ($references as $r) {
+			$this->load->model('references_model');
+			$this->references_model->ParentID = $parentid;
+			$this->references_model->Name = $r->referencename;
+			$this->references_model->Address = $r->referenceaddress;
+			$this->references_model->ContactNo = $r->referencecontact;
+					
+			$this->references_model->save();
+		}
+	}
+	
+	function savequestionaire($parendId) {
+		$this->load->model('questionaire_model');
+		$this->questionaire_model->ParentID = $parendId;		
+		$this->questionaire_model->Q36aAns = $this->input->post('q36aans');
+		$this->questionaire_model->Q36aDetails = $this->input->post('q36adetails'); 
+		$this->questionaire_model->Q36bAns = $this->input->post('q36bans');
+		$this->questionaire_model->Q36bDetails = $this->input->post('q36bdetails'); 
+		$this->questionaire_model->Q37aAns = $this->input->post('q37aans'); 
+		$this->questionaire_model->Q37aDetails = $this->input->post('q37adetails'); 
+		$this->questionaire_model->Q37bAns = $this->input->post('q37bans'); 
+		$this->questionaire_model->Q37bDetails = $this->input->post('q37bdetails'); 
+		$this->questionaire_model->Q38Ans = $this->input->post('q38ans'); 
+		$this->questionaire_model->Q38Details = $this->input->post('q38details'); 
+		$this->questionaire_model->Q39Ans = $this->input->post('q39ans'); 
+		$this->questionaire_model->Q39Details = $this->input->post('q39details'); 
+		$this->questionaire_model->Q40Ans = $this->input->post('q40ans'); 
+		$this->questionaire_model->Q40Details = $this->input->post('q40details'); 
+		$this->questionaire_model->Q41aAns = $this->input->post('q41aans'); 
+		$this->questionaire_model->Q41aDetails = $this->input->post('q41adetails'); 
+		$this->questionaire_model->Q41bAns = $this->input->post('q41bans'); 
+		$this->questionaire_model->Q41bDetails = $this->input->post('q41bdetails'); 
+		$this->questionaire_model->Q41cAns = $this->input->post('q41cans'); 
+		$this->questionaire_model->Q41cDetails = $this->input->post('q41cdetails'); 
+		$this->questionaire_model->CommunityTaxCertNo = $this->input->post('communitytaxcertno'); 
+		$this->questionaire_model->IssuedAt = $this->input->post('issuedat'); 
+		$this->questionaire_model->IssuedOn = date('Y-m-d', strtotime($this->input->post('issuedon')));
+		$this->questionaire_model->DateAccomplished = date('Y-m-d', strtotime($this->input->post('dateaccomplished')));
+		
+		
+		return $this->questionaire_model->save();
 	}
 	
 }

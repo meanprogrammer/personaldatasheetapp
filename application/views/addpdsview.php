@@ -489,17 +489,102 @@
                     <th colspan="5">TRAINING PROGRAMS (Start from the most recent training.)</th>
                 </tr>
                 <tr>
-                    <td colspan="5"><input id="addtraningprogrambutton" class="btn btn-primary" type="button" value="Add Training Program" /></td>
+                    <td colspan="5"><input id="addtraningprogrambutton" name="addtraningprogrambutton" class="btn btn-primary" type="button" value="Add Training Program" /></td>
+                    <input type="hidden" id="trainingprogramhidden" name="trainingprogramhidden" />
+                </tr>
+                <tr>
+                	<td colspan="5">
+                		<div id="trainingprogram-container">
+                		</div>
+                	</td>
                 </tr>
             </table>
+            
+            <div id="addtraningprogram-modal" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title">Add Training Program</h4>
+			      </div>
+			      <div class="modal-body">
+			        <table class="table table-bordered">
+			        	<tr>
+			        		<td colspan="2">TITLE OF SEMINAR/CONFERENCE/WORKSHOP/SHORT COURSES (Write in full)</td>
+			        		<td colspan="2"><textarea id="titleofseminar" name="titleofseminar" cols="35" row="3" ></textarea></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="4">INCLUSIVE DATES (mm/dd/yyyy)</td>
+			        	</tr>
+			        	<tr>
+			        		<td>FROM</td>
+			        		<td><input type="text" id="trainingfrom" name="trainingfrom" /></td>
+			        		<td>TO</td>
+			        		<td><input type="text" id="trainingto" name="trainingto" /></td>
+			        	</tr>
+			        	<tr>
+			        		<td>NUMBER OF HOURS</td>
+			        		<td><input type="text" id="traininghours" name="traininghours" /></td>
+			        		<td>CONDUCTED/ SPONSORED BY (Write in full)</td>
+			        		<td><input type="text" id="trainingconducted" name="trainingconducted" /></td>
+			        	</tr>
+			        </table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="savetrainingprogrambutton" name="savetrainingprogrambutton" type="button" class="btn btn-primary">Save</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->           
+            
             <table class="table table-bordered">
                 <tr>
-                    <th colspan="5">OTHER INFORMATION</th>
+                    <th colspan="3">OTHER INFORMATION</th>
                 </tr>
                 <tr>
-                    <td colspan="5"><input id="addotherinfobutton" type="button" class="btn btn-primary" value="Add Other Information" /></td>
+                    <td colspan="3"><input id="addotherinfobutton" name="addotherinfobutton" type="button" class="btn btn-primary" value="Add Other Information" /></td>
+                    <input type="hidden" id="otherinfohidden" name="otherinfohidden" />
+                </tr>
+                <tr>
+                	<td colspan="3">
+                		<div id="otherinfo-container">
+                		</div>
+                	</td>
                 </tr>
             </table>
+            
+            
+            <div id="addotherinfo-modal" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title">Add Other Information</h4>
+			      </div>
+			      <div class="modal-body">
+			        <table class="table table-bordered">
+			        	<tr>
+			        		<td colspan="2">SPECIAL SKILLS / HOBBIES:</td>
+			        		<td colspan="2"><textarea id="specialskills" name="specialskills" cols="35" row="3" ></textarea></td>
+			        	</tr>
+			        				        	<tr>
+			        		<td colspan="2">NON-ACADEMIC DISTINCTIONS / RECOGNITION: (Write in full)</td>
+			        		<td colspan="2"><textarea id="nonacademicdistinction" name="nonacademicdistinction" cols="35" row="3" ></textarea></td>
+			        	</tr>
+			        				        	<tr>
+			        		<td colspan="2">MEMBERSHIP IN ASSOCIATION/ORGANIZATION(Write in full)</td>
+			        		<td colspan="2"><textarea id="membershipassoc" name="membershipassoc" cols="35" row="3" ></textarea></td>
+			        	</tr>
+			        </table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="saveotherinfobutton" name="saveotherinfobutton" type="button" class="btn btn-primary">Save</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->       
         </div>
         <div class="tab-pane fade fourth-tab" id="page4">
             <table class="table table-bordered">
@@ -511,14 +596,14 @@
                        a. Within the third degree (for National Government Employees): appointing authority, recommending authority, chief of office/bureau/department or person who has immediate supervision over you in the Office, Bureau or Department where you will be appointed?
                     </td>
                     <td colspan="2">                       
-                        <input id="q36ayes" name="q36aans" type="radio" /> Yes 
-                        <input id="q36ano" name="q36aans" type="radio" /> No 
+                        <input id="q36ayes" value="Yes" name="q36aans" type="radio" /> Yes 
+                        <input id="q36ano" value="No" name="q36aans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q36adetails" type="text" />
+                        <input id="q36adetails" name="q36adetails" type="text" />
                     </td>
                 </tr>
                 <tr>
@@ -526,14 +611,14 @@
                        b. Within the fourth degree (for Local Government Employees): appointing authority or recommending authority where you will be appointed?
                     </td>
                     <td colspan="2">                       
-                        <input id="q36byes" name="q36bans" type="radio" /> Yes 
-                        <input id="q36bno" name="q36bans" type="radio" /> No 
+                        <input id="q36byes" value="Yes" name="q36bans" type="radio" /> Yes 
+                        <input id="q36bno" value="No" name="q36bans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q36bdetails" type="text" />
+                        <input id="q36bdetails" name="q36bdetails" type="text" />
                     </td>
                 </tr>
 
@@ -542,14 +627,14 @@
                        a. Have you ever been formally charged?
                     </td>
                     <td colspan="2">                       
-                        <input id="q37ayes" name="q37aans" type="radio" /> Yes 
-                        <input id="q37ano" name="q37aans" type="radio" /> No 
+                        <input id="q37ayes" value="Yes" name="q37aans" type="radio" /> Yes 
+                        <input id="q37ano" value="No" name="q37aans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q37adetails" type="text" />
+                        <input id="q37adetails" name="q37adetails" type="text" />
                     </td>
                 </tr>
 
@@ -558,14 +643,14 @@
                        b. Have you ever been guilty of any administrative offense?
                     </td>
                     <td colspan="2">                       
-                        <input id="q37byes" name="q37bans" type="radio" /> Yes 
-                        <input id="q37bno" name="q37bans" type="radio" /> No 
+                        <input id="q37byes" value="Yes" name="q37bans" type="radio" /> Yes 
+                        <input id="q37bno" value="No" name="q37bans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q37bdetails" type="text" />
+                        <input id="q37bdetails" name="q37bdetails" type="text" />
                     </td>
                 </tr>
 
@@ -574,14 +659,14 @@
                        Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
                     </td>
                     <td colspan="2">                       
-                        <input id="q38yes" name="q38ans" type="radio" /> Yes 
-                        <input id="q38no" name="q38ans" type="radio" /> No 
+                        <input id="q38yes" value="Yes" name="q38ans" type="radio" /> Yes 
+                        <input id="q38no" value="No" name="q38ans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q38details" type="text" />
+                        <input id="q38details" name="q38details" type="text" />
                     </td>
                 </tr>
 
@@ -590,14 +675,14 @@
                        Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract, AWOL or phased out, in the public or private sector?
                     </td>
                     <td colspan="2">                       
-                        <input id="q39yes" name="q39ans" type="radio" /> Yes 
-                        <input id="q39no" name="q39ans" type="radio" /> No 
+                        <input id="q39yes" value="Yes" name="q39ans" type="radio" /> Yes 
+                        <input id="q39no" value="No" name="q39ans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q39details" type="text" />
+                        <input id="q39details" name="q39details" type="text" />
                     </td>
                 </tr>
 
@@ -606,14 +691,14 @@
                        Have you ever been a candidate in a national or local election (except Barangay election)?
                     </td>
                     <td colspan="2">                       
-                        <input id="q40yes" name="q40ans" type="radio" /> Yes 
-                        <input id="q40no" name="q40ans" type="radio" /> No 
+                        <input id="q40yes" value="Yes" name="q40ans" type="radio" /> Yes 
+                        <input id="q40no" value="No" name="q40ans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q40details" type="text" />
+                        <input id="q40details" name="q40details" type="text" />
                     </td>
                 </tr>
 
@@ -626,14 +711,14 @@
                        Are you a member of any indigenous group?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41ayes" name="q41aans" type="radio" /> Yes 
-                        <input id="q41ano" name="q41aans" type="radio" /> No 
+                        <input id="q41ayes" value="Yes" name="q41aans" type="radio" /> Yes 
+                        <input id="q41ano" value="No" name="q41aans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41adetails" type="text" />
+                        <input id="q41adetails"  name="q41adetails" type="text" />
                     </td>
                 </tr>
 
@@ -642,14 +727,14 @@
                        Are you differently abled?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41byes" name="q41bans" type="radio" /> Yes 
-                        <input id="q41bno" name="q41bans" type="radio" /> No 
+                        <input id="q41byes" value="Yes" name="q41bans" type="radio" /> Yes 
+                        <input id="q41bno" value="No" name="q41bans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41bdetails" type="text" />
+                        <input id="q41bdetails"  name="q41bdetails" type="text" />
                     </td>
                 </tr>
 
@@ -658,14 +743,14 @@
                        Are you a solo parent?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41cyes" name="q41cans" type="radio" /> Yes 
-                        <input id="q41cno" name="q41cans" type="radio" /> No 
+                        <input id="q41cyes" value="Yes" name="q41cans" type="radio" /> Yes 
+                        <input id="q41cno" value="No" name="q41cans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41cdetails" type="text" />
+                        <input id="q41cdetails" name="q41cdetails" type="text" />
                     </td>
                 </tr>
             </table>
@@ -676,8 +761,45 @@
                 </tr>
                 <tr>
                     <td colspan="3"><input id="addreferencebutton" class="btn btn-primary" type="button" value="Add Reference" /></td>
+                    <input type="hidden" id="referenceshidden" name="referenceshidden" />
+                </tr>
+                <tr>
+                	<td colspan="3">
+                		<div id="reference-container"></div>
+                	</td>
                 </tr>
             </table>
+
+            <div id="addreference-modal" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title">Add Reference</h4>
+			      </div>
+			      <div class="modal-body">
+			        <table class="table table-bordered">
+			        	<tr>
+			        		<td colspan="2">NAME</td>
+			        		<td colspan="2"><input  type="text" id="referencename" name="referencename" /></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="2">ADDRESS</td>
+			        		<td colspan="2"><input  type="text" id="referenceaddress" name="referenceaddress" /></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="2">TEL. NO.</td>
+			        		<td colspan="2"><input  type="text" id="referencecontact" name="referencecontact" /></td>
+			        	</tr>
+			        </table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="savereferencebutton" name="savereferencebutton" type="button" class="btn btn-primary">Save</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->   
 
             <table class="table table-bordered">
                 <tr>
@@ -688,15 +810,15 @@
                 </tr>
                 <tr>
                     <td>COMMUNITY TAX CERTIFICATE NO.</td>
-                    <td><input id="communitytaxcertno" type="text" /></td>
+                    <td><input id="communitytaxcertno" name="communitytaxcertno" type="text" /></td>
                     <td>ISSUED AT</td>
-                    <td><input id="issuedat" type="text" /></td>
+                    <td><input id="issuedat" name="issuedat" type="text" /></td>
                 </tr>
                 <tr>
                     <td>ISSUED ON (mm/dd/yyyy)</td>
-                    <td><input id="issuedon" type="text" /></td>
+                    <td><input id="issuedon" name="issuedon" type="text" /></td>
                     <td>DATE ACCOMPLISHED</td>
-                    <td><input id="dateaccomplished" type="text" /></td>
+                    <td><input id="dateaccomplished" name="dateaccomplished" type="text" /></td>
                 </tr>
             </table>
         </div>
@@ -712,15 +834,18 @@
 	var civilservice = [];
 	var workexp = [];
 	var voluntarywork = [];
+	var trainingprogram = [];
+	var otherinfo = [];
+	var references = [];
 	$(document).ready(function() {	
-   		 $('#myTab a[href="#page3"]').tab('show');
+   		 $('#myTab a[href="#page4"]').tab('show');
 
    		 //ADD CHILD
 	    $('#addchildbutton').click(function(){
 	    	$('#addchild-modal').modal({ keyboard: false });
 	    });
 
-	    $('#voluntaryworkfrom,#voluntaryworkto,#workstart,#workend,#dateofexam,#childdateofbirth,#licensereleasedate,#dateofbirth,#educationfrom,#educationto').datepicker();
+	    $('#issuedon,#dateaccomplished,#trainingfrom,#trainingto,#voluntaryworkfrom,#voluntaryworkto,#workstart,#workend,#dateofexam,#childdateofbirth,#licensereleasedate,#dateofbirth,#educationfrom,#educationto').datepicker();
 
 	    $('#addchild-modal').on('hide.bs.modal', function (e) {
 	    	  $('#nameofchild,#childdateofbirth').val('');
@@ -787,6 +912,42 @@
 			  $('#voluntaryworkorg,#voluntaryworkfrom,#voluntaryworkto,#voluntaryworkhours,#voluntaryworknature').val('');
 	    });
 		//VOLUNTARY WORK
+
+		//TRAINING PROGRAM
+		$('#addtraningprogrambutton').click(function(){
+			$('#addtraningprogram-modal').modal({ keyboard: false });
+		});
+
+		$('#savetrainingprogrambutton').click(savetrainingprogram);
+
+	    $('#addtraningprogram-modal').on('hide.bs.modal', function (e) {
+			 $('#titleofseminar,#trainingfrom,#trainingto,#traininghours,#trainingconducted').val('');
+	    });
+		//TRAINING PROGRAM
+
+		//OTHER INFORMATION
+		$('#addotherinfobutton').click(function(){
+			$('#addotherinfo-modal').modal({ keyboard: false });
+		});
+
+		$('#saveotherinfobutton').click(saveotherinfo);
+
+	    $('#addotherinfo-modal').on('hide.bs.modal', function (e) {
+			  $('#specialskills,#nonacademicdistinction,#membershipassoc').val('');			 
+	    });
+		//OTHER INFORMATION
+
+		//REFERENCE
+		$('#addreferencebutton').click(function(){
+			$('#addreference-modal').modal({ keyboard: false });
+		});
+
+		$('#savereferencebutton').click(savereference);
+
+	    $('#addreference-modal').on('hide.bs.modal', function (e) {
+			  $('#referencename,#referenceaddress,#referencecontact').val('');			 
+	    });
+	  //REFERENCE
 	});
 
 
@@ -798,3 +959,6 @@
 <script src="js/civilservice.js" type="text/javascript"></script>
 <script src="js/workexp.js" type="text/javascript"></script>
 <script src="js/voluntarywork.js" type="text/javascript"></script>
+<script src="js/trainingprogram.js" type="text/javascript"></script>
+<script src="js/otherinfo.js" type="text/javascript"></script>
+<script src="js/reference.js" type="text/javascript"></script>
