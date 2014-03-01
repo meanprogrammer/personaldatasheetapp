@@ -6,12 +6,19 @@
 	<link href="<?php echo base_url(); ?>css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+	<?php
+		if(!$this->session->userdata('UserID')){ redirect('login/index'); }
+		$personals = $pinfo->result(); 
+	?>
 	<div class="page-header custom-header">
 	  <h1>Personal Data Sheet</h1>
 	</div>
-	<?php
-		$personals = $pinfo->result(); 
-	?>
+	<div class="logout-container">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" />Welcome, <?php echo $this->session->userdata('Username');?></button>
+		  <a class="btn btn-danger" href="<?php echo site_url('login/logout');?>">Log Out</a>
+		</div>
+	</div>
    	<div class="container-fluid">
    	<table class="table table-bordered table-striped">
    	<tr>
@@ -30,7 +37,7 @@
 	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("pds/detail/").'/'.$p->RecordID; ?>">Detail</a></td>
 	   			<td width="30"><a class="btn btn-primary btn-sm"  href="<?php echo site_url("pds/edit/").'/'.$p->RecordID; ?>">Edit</a></td>
 	   			<td width="30"><a class="btn btn-danger btn-sm" onclick="return beforedelete();" href="<?php echo site_url("pds/delete/").'/'.$p->RecordID; ?>">Delete</a></td>
-	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("pds/printpdf/").'/'.$p->RecordID; ?>">Print PDF</a></td>
+	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("printpdf/index"); ?>">Print PDF</a></td>
 	   			<td><?php echo $p->Surname; ?></td>
 	   			<td><?php echo $p->Firstname; ?></td>
 	   			<td><?php echo $p->Middlename; ?></td>

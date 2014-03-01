@@ -49,6 +49,30 @@ class Pds extends CI_Controller {
 		$this->savereference($id);
 		$this->savequestionaire($id);
 		//$this->load->view('save_pds', $data);
+		if($this->session->userdata('IsAdmin') == 0){
+			$this->load->model('user_model');
+			$uu = $this->user_model->getbyuserid($this->session->userdata('UserID'));
+			$u1 = $uu->row();
+			
+			$this->user_model->Username = $u1->Username;
+			$this->user_model->Password = $u1->Password;
+			$this->user_model->AssociatedPDS = $id;
+			$this->user_model->LastUpdate = $u1->LastUpdate;
+			$this->user_model->IsAdmin = $u1->IsAdmin;
+			
+			$this->user_model->updateassociatedpds($this->session->userdata('UserID'));
+			
+			$user = $this->user_model->getbyuserid($this->session->userdata('UserID'));
+			$u = $user->row();
+			$userdata = array(
+							'UserID' => $u->RecordID,
+							'Username' => $u->Username,
+							'AssociatedPDS' => $u->AssociatedPDS,
+							'LastUpdate' => $u->LastUpdate,
+							'IsAdmin' => $u->IsAdmin
+						);
+			$this->session->set_userdata($userdata);
+		}
 		redirect('pds/detail/'.$id);
 	}
 	
@@ -109,7 +133,9 @@ class Pds extends CI_Controller {
 		
 		$json = $this->input->post('childrenhidden');
 		$children = json_decode($json);
-				
+		
+		if(!$children){ return ; }
+		
 		foreach ($children as $c) {
 			$this->load->model('familybackground_children_model');
 			$this->familybackground_children_model->NameOfChild = $c->nameofchild;
@@ -123,6 +149,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('educationhidden');
 		$educ = json_decode($json);
 		
+		if(!$educ){ return ; }
 		foreach ($educ as $e) {
 			$this->load->model('educationalbackground_model');
 			$this->educationalbackground_model->Level = $e->educationlevel;
@@ -143,6 +170,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('civilservicehidden');
 		$civilservice = json_decode($json);
 		
+		if(!$civilservice){ return ; }
 		foreach ($civilservice as $cv) {
 			$this->load->model('civilserviceeligibility_model');
 			$this->civilserviceeligibility_model->CareerService = $cv->careerservice;
@@ -161,6 +189,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('workexphidden');
 		$workexp = json_decode($json);
 		
+		if(!$workexp){return ;}
 		foreach ($workexp as $we) {
 			$this->load->model('workexperience_model');
 			$this->workexperience_model->ParentID = $parentid;
@@ -180,7 +209,7 @@ class Pds extends CI_Controller {
 	function savevoluntarywork($parentid) {
 		$json = $this->input->post('voluntaryworkhidden');
 		$vwork = json_decode($json);
-		
+		if(!$vwork){return ;}		
 		foreach ($vwork as $vw) {
 			$this->load->model('voluntaryworks_model');
 			$this->voluntaryworks_model->ParentID = $parentid;
@@ -198,6 +227,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('trainingprogramhidden');
 		$training = json_decode($json);
 		
+		if(!$training){return ;}
 		foreach ($training as $tp) {
 			$this->load->model('trainingprograms_model');
 			$this->trainingprograms_model->ParentID = $parentid;
@@ -215,6 +245,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('otherinfohidden');
 		$otherinfo = json_decode($json);
 		
+		if(!$otherinfo){return ;}
 		foreach ($otherinfo as $oi) {
 			$this->load->model('otherinformation_model');
 			$this->otherinformation_model->ParentID = $parentid;
@@ -230,6 +261,7 @@ class Pds extends CI_Controller {
 		$json = $this->input->post('referenceshidden');
 		$references = json_decode($json);
 		
+		if(!$references){return ;}
 		foreach ($references as $r) {
 			$this->load->model('references_model');
 			$this->references_model->ParentID = $parentid;

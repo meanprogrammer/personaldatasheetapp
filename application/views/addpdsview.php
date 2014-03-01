@@ -16,6 +16,12 @@
 	<div class="page-header custom-header">
 	  <h1>Personal Data Sheet</h1>
 	</div>
+		<div class="logout-container">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" />Welcome, <?php echo $this->session->userdata('Username');?></button>
+		  <a class="btn btn-danger" href="<?php echo site_url('login/logout');?>">Log Out</a>
+		</div>
+	</div>
     <ul class="nav nav-tabs" id="myTab">
       <li class="active"><a href="#page1" data-toggle="tab">Page 1</a></li>
       <li><a href="#page2" data-toggle="tab">Page 2</a></li>

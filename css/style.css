@@ -11,3 +11,4 @@ body {
 .width-800 { width: 800px !important; }
 .buttons-container { padding-left: 20px;padding-bottom: 20px; }
 .custom-header { padding-left: 20px; }
+.logout-container { float: right;margin-right: 20px;margin-top: -100px; }
