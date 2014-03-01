@@ -1,9 +1,10 @@
+	var pagetype = $('#pagetype').val();
 	function renderworkexp(){
 		if(workexp.length == 0){
 			$('#workexp-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>FROM</th>';
 	    html += '<th>TO</th>';
@@ -24,15 +25,16 @@
 				html += '<td>'+ value.salaryincrement +'</td>';
 				html += '<td>'+ value.statusofappointment +'</td>';
 				html += '<td>'+ value.govtservice +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deleteworkexp('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
 		$('#workexp-container').html(html);
 	}
 	
-	function deletecivilservice(key) {
-
+	function deleteworkexp(key) {
 	    var source = workexp;
 	    for (var i = 0; i < source.length; i++) {
 	        if (source[i].tempid == key) {
@@ -71,6 +73,25 @@
 		    
 		  $('#workexphidden').val(JSON.stringify(workexp));
 		  $('#addworkexp-modal').modal('hide');		 
+	}
+	
+	function renderworkexpfromdb() {
+		var json_obj = JSON.parse($('#workexphidden').val());
+		$.each(json_obj, function(k, v) {
+			workexp.push({
+				  "workstart":v.StartDate, 
+				  "workend": v.EndDate,
+				  "positiontitle": v.PositionTitle, 
+				  "agencyname": v.CompanyName, 
+				  "monthlysalary": v.MonthlySalary, 
+				  "salaryincrement": v.SalaryGradeStepIncrement,
+				  "statusofappointment": v.StatusOfAppointment,
+				  "govtservice": v.GovtService,
+				  "tempid": guid()
+			});
+		});
+		$('#workexphidden').val(JSON.stringify(workexp));
+		renderworkexp();
 	}
 	
 	function S4() {

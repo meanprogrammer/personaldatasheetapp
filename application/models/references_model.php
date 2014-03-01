@@ -14,4 +14,13 @@ class references_model extends CI_Model {
     function save(){
     	$this->db->insert('references', $this);
     }
+    
+    function getreferencebyid($id) {
+    	return $this->db->where('ParentID', $id)->get('references');
+    }
+    
+    function deletereferencebyid($id) {
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('references');
+    }
 }

@@ -1,9 +1,10 @@
+	var pagetype = $('#pagetype').val();
 	function rendervoluntarywork(){
 		if(voluntarywork.length == 0){
 			$('#voluntarywork-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>NAME & ADDRESS OF ORGANIZATION</th>';
 	    html += '<th>FROM</th>';
@@ -18,14 +19,16 @@
 				html += '<td>'+ value.voluntaryworkto +'</td>';
 				html += '<td>'+ value.voluntaryworkhours +'</td>';
 				html += '<td>'+ value.voluntaryworknature +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deletevoluntarywork('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
 		$('#voluntarywork-container').html(html);
 	}
 	
-	function deletecivilservice(key) {
+	function deletevoluntarywork(key) {
 
 	    var source = voluntarywork;
 	    for (var i = 0; i < source.length; i++) {
@@ -59,6 +62,23 @@
 		    
 		  $('#voluntaryworkhidden').val(JSON.stringify(voluntarywork));
 		  $('#addvoluntarywork-modal').modal('hide');		 
+	}
+	
+	
+	function rendervoluntaryworkfromdb() {
+		var json_obj = JSON.parse($('#voluntaryworkhidden').val());
+		$.each(json_obj, function(k, v) {
+			voluntarywork.push({
+				  "voluntaryworkorg":v.NameAddressOfOrg, 
+				  "voluntaryworkfrom": v.StartDate,
+				  "voluntaryworkto": v.EndDate, 
+				  "voluntaryworkhours": v.NumberOfHours, 
+				  "voluntaryworknature": v.PositionOrNatureOfWork, 
+				  "tempid": guid()
+			});
+		});
+		$('#voluntaryworkhidden').val(JSON.stringify(voluntarywork));
+		rendervoluntarywork();
 	}
 	
 	function S4() {

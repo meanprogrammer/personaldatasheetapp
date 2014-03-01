@@ -20,4 +20,12 @@ class workexperience_model extends CI_Model {
     	$this->db->insert('workexperience', $this);
     }
 	
+    function getworkexperiencebyid($id) {
+    	return  $this->db->where('ParentID', $id)->get('workexperience');
+    } 
+    
+    function  deleteworkexpbyid($id){
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('workexperience');
+    }
 }

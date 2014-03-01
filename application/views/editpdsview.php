@@ -13,6 +13,19 @@
 	<script src="<?php echo base_url(); ?>js/jquery.validate.min.js" type="text/javascript"></script>
 </head>
 <body>
+	<?php 
+	$personal = $pinfo->row();
+	$family = $family->row(); 
+	$children = $children->result();
+	$education = $education->result();
+	$civilservice = $civilservice->result();
+	$workexp = $workexp->result();
+	$vwork = $vwork->result();
+	$training = $training->result();
+	$other = $other->result();
+	$reference = $reference->result();
+	$question = $question->row();
+	?>
 	<div class="page-header custom-header">
 	  <h1>Personal Data Sheet</h1>
 	</div>
@@ -22,7 +35,7 @@
       <li><a href="#page3" data-toggle="tab">Page 3</a></li>
       <li><a href="#page4" data-toggle="tab">Page 4</a></li>
     </ul>
-    <form method="post" id="mainform" action="<?php echo site_url('pds/savepds') ?>" >
+    <form method="post" id="mainform" action="<?php echo site_url("pds/update/").'/'.$currentid ?>" >
     <div class="tab-content">
         <div class="tab-pane active first-tab" id="page1">
             <table class="table table-bordered">
@@ -31,100 +44,100 @@
             </tr>
             <tr>
                 <td>SURNAME</td>
-                <td colspan="3"><input required id="surname" name="surname" class="form-control input-sm" type="text" /></td>
+                <td colspan="3"><input required id="surname" value="<?php echo $personal->Surname; ?>" name="surname" class="form-control input-sm" type="text" /></td>
             </tr>
             <tr>
                 <td>FIRST NAME</td>
-                <td colspan="3"><input required id="firstname" name="firstname" class="form-control input-sm"  type="text" /></td>
+                <td colspan="3"><input required id="firstname" name="firstname" value="<?php echo $personal->Firstname; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>MIDDLE NAME</td>
-                <td><input id="middlename" required name="middlename" class="form-control input-sm"  type="text" /></td>
+                <td><input id="middlename" required name="middlename" value="<?php echo $personal->Middlename; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>NAME EXTENSION (e.g. Jr., Sr.)</td>
-                <td><input id="nameextension" name="nameextension" class="form-control input-sm"  type="text" /></td>
+                <td><input id="nameextension" name="nameextension" value="<?php echo $personal->ExtensionName; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>DATE OF BIRTH (mm/dd/yyyy)</td>
-                <td><input id="dateofbirth" required  name="dateofbirth" class="form-control input-sm"  type="text" /></td>
+                <td><input id="dateofbirth" required  name="dateofbirth" value="<?php echo $personal->DateOfBirth; ?>" class="form-control input-sm"  type="text" /></td>
                 <td rowspan="3">RESIDENTIAL ADDRESS</td>
-                <td rowspan="3"><textarea id="residentialaddtress" name="residentialaddtress" class="form-control"  cols="20" rows="3"></textarea></td>
+                <td rowspan="3"><textarea id="residentialaddtress" name="residentialaddtress" class="form-control"  cols="20" rows="3"><?php echo $personal->ResidentialAddress; ?></textarea></td>
             </tr>
             <tr>
                 <td>PLACE OF BIRTH</td>
-                <td><input id="placeofbirth" name="placeofbirth" class="form-control input-sm"  type="text" /></td>
+                <td><input id="placeofbirth" name="placeofbirth" value="<?php echo $personal->PlaceOfBirth; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>SEX</td>
                 <td>
-                    <input id="maleradio" name="sex" value="Male" type="radio" /> Male 
-                    <input id="femaleradio" name="sex" value="Female" type="radio" /> Female 
+                    <input id="maleradio" name="sex" value="Male" <?php if($personal->Sex == "Male") { echo 'checked'; }?> type="radio" /> Male 
+                    <input id="femaleradio" name="sex" value="Female" <?php if($personal->Sex == "Female") { echo 'checked'; }?>  type="radio" /> Female 
                 </td>
             </tr>
             <tr>
                 <td rowspan="2">CIVIL STATUS</td>
                 <td rowspan="2">
-                    <input id="singleradio" name="civilstatus" value="Single" type="radio" /> Single 
-                    <input id="marriedradio" name="civilstatus" value="Married" type="radio" /> Married 
-                    <input id="anulledradio" name="civilstatus" value="Anulled" type="radio" /> Anulled <br />
-                    <input id="widowedradio" name="civilstatus" value="Widowed"  type="radio" /> Widowed 
-                    <input id="separatedradio" name="civilstatus" value="Separated"  type="radio" /> Separated 
-                    <input id="othersradio" name="civilstatus" value="Others"  type="radio" /> Others 
+                    <input id="singleradio" name="civilstatus" value="Single" <?php if($personal->CivilStatus == "Single") { echo 'checked'; }?> type="radio" /> Single 
+                    <input id="marriedradio" name="civilstatus" value="Married" <?php if($personal->CivilStatus == "Married") { echo 'checked'; }?> type="radio" /> Married 
+                    <input id="anulledradio" name="civilstatus" value="Anulled" <?php if($personal->CivilStatus == "Anulled") { echo 'checked'; }?> type="radio" /> Anulled <br />
+                    <input id="widowedradio" name="civilstatus" value="Widowed" <?php if($personal->CivilStatus == "Widowed") { echo 'checked'; }?> type="radio" /> Widowed 
+                    <input id="separatedradio" name="civilstatus" value="Separated" <?php if($personal->CivilStatus == "Separated") { echo 'checked'; }?> type="radio" /> Separated 
+                    <input id="othersradio" name="civilstatus" value="Others" <?php if($personal->CivilStatus == "Others") { echo 'checked'; }?> type="radio" /> Others 
                 </td>
                 <td>ZIP CODE</td>
-                <td><input id="residentialzipcode" name="residentialzipcode" class="form-control input-sm"  type="text" /></td>
+                <td><input id="residentialzipcode" name="residentialzipcode" value="<?php echo $personal->ResidentialZipcode; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>TELEPHONE NO.</td>
-                <td><input id="residentialcontactno" name="residentialcontactno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="residentialcontactno" name="residentialcontactno" value="<?php echo $personal->ResidentialContactNo; ?>" class="form-control input-sm"  type="text" /></td>
                 
             </tr>
             <tr>
                 <td>CITIZENSHIP</td>
-                <td><input id="citizenship" required name="citizenship" class="form-control input-sm"  type="text" /></td>
+                <td><input id="citizenship" required name="citizenship" value="<?php echo $personal->Citizenship; ?>" class="form-control input-sm"  type="text" /></td>
                 <td rowspan="3">PERMANENT ADDRESS</td>
-                <td rowspan="3"><textarea id="permanentaddress" required  name="permanentaddress" class="form-control"  cols="20" rows="3"></textarea></td>
+                <td rowspan="3"><textarea id="permanentaddress" required  name="permanentaddress" class="form-control"  cols="20" rows="3"><?php echo $personal->PermanentAddress; ?></textarea></td>
             </tr>
             <tr>
                 <td>HEIGHT (m)</td>
-                <td><input id="height" name="height" required  class="form-control input-sm"  type="text" /></td>
+                <td><input id="height" name="height" required value="<?php echo $personal->Height; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>WEIGHT (kg)</td>
-                <td><input id="weight" name="weight" required  class="form-control input-sm"  type="text" /></td>
+                <td><input id="weight" name="weight" required value="<?php echo $personal->Weight; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>BLOOD TYPE</td>
-                <td><input id="bloodtype" name="bloodtype" class="form-control input-sm"  type="text" /></td>
+                <td><input id="bloodtype" name="bloodtype" value="<?php echo $personal->BloodType; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>ZIP CODE</td>
-                <td><input id="permanentzipcode" name="permanentzipcode" class="form-control input-sm"  type="text" /></td>
+                <td><input id="permanentzipcode" name="permanentzipcode" value="<?php echo $personal->PermanentZipcode; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>GSIS ID NO.</td>
-                <td><input id="gsisidno" name="gsisidno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="gsisidno" name="gsisidno" value="<?php echo $personal->GSISNo; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>TELEPHONE NO.</td>
-                <td><input id="permanentcontactno" name="permanentcontactno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="permanentcontactno" name="permanentcontactno" value="<?php echo $personal->PermanentContactNo; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>PAG-IBIG ID NO.</td>
-                <td><input id="pagibigidno" name="pagibigidno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="pagibigidno" name="pagibigidno" value="<?php echo $personal->PAGIBIGNo; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>E-MAIL ADDRESS (if any)</td>
-                <td><input id="emailaddress" name="emailaddress" class="form-control input-sm"  type="text" /></td>
+                <td><input id="emailaddress" name="emailaddress" value="<?php echo $personal->EmailAddress; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>PHILHEALTH NO.</td>
-                <td><input id="philhealthno" name="philhealthno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="philhealthno" name="philhealthno" value="<?php echo $personal->PhilHealthNo; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>CELLPHONE NO. (if any)</td>
-                <td><input id="mobileno" name="mobileno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="mobileno" name="mobileno" value="<?php echo $personal->MobileNo; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>SSS NO.</td>
-                <td><input id="sssno" name="sssno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="sssno" name="sssno" value="<?php echo $personal->SSSNo; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>AGENCY EMPLOYEE NO.</td>
-                <td><input id="agencyemployeeno" name="agencyemployeeno" class="form-control input-sm"  type="text" /></td>
+                <td><input id="agencyemployeeno" name="agencyemployeeno" value="<?php echo $personal->AgencyEmployeeNo; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>TIN</td>
-                <td colspan="3"><input id="tinno" name="tinno" class="form-control input-sm"  type="text" /></td>
+                <td colspan="3"><input id="tinno" name="tinno" value="<?php echo $personal->TINNo; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             </table>
             <table class="table table-bordered">
@@ -134,78 +147,78 @@
             <tr>
                 <td class="width-200">SPOUSE&#39;S SURNAME</td>
                 <td style="width: 300px;">
-                    <input id="spousesurname" name="spousesurname" class="form-control input-sm"  type="text" /></td>
+                    <input id="spousesurname" name="spousesurname" value="<?php echo $family->SpouseSurname; ?>" class="form-control input-sm"  type="text" /></td>
                 <td>
                     <input id="addchildbutton" name="addchildbutton" class="btn btn-primary" type="button" 
                         value="Add Child" /></td>
-                    <input id="childrenhidden" name="childrenhidden" type="hidden"></input>
+                    <input id="childrenhidden" name="childrenhidden" value='<?php echo json_encode($children); ?>' type="hidden"></input>
                 <td>&nbsp;</td>
             </tr>
             <tr>
                 <td>FIRST NAME&nbsp;</td>
                 <td>
-                    <input id="spousefirstname" name="spousefirstname" class="form-control input-sm"  type="text" /></td>
+                    <input id="spousefirstname" name="spousefirstname" value="<?php echo $family->SpouseFirstname; ?>" class="form-control input-sm"  type="text" /></td>
                 <td colspan="2" rowspan="13"><div id="children-container"></div></td>
             </tr>
             <tr>
                 <td>MIDDLE NAME</td>
                 <td>
-                    <input id="spousemiddlename" name="spousemiddlename" class="form-control input-sm"  type="text" /></td>
+                    <input id="spousemiddlename" name="spousemiddlename" value="<?php echo $family->SpouseMiddlename; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>OCCUPATION</td>
                 <td>
-                    <input id="spouseoccupation" name="spouseoccupation" class="form-control input-sm"  type="text" /></td>
+                    <input id="spouseoccupation" name="spouseoccupation" value="<?php echo $family->SpouseOccupation; ?>" class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>EMPLOYER/BUS. NAME</td>
                 <td>
-                    <input id="spouseemployerbusinessname" name="spouseemployerbusinessname" class="form-control input-sm"  type="text" /></td>
+                    <input id="spouseemployerbusinessname" name="spouseemployerbusinessname" value="<?php echo $family->SpouseEmployerName; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>BUSINESS ADDRESS</td>
                 <td>
-                    <input id="spouseemployerbusinessaddress" name="spouseemployerbusinessaddress" class="form-control input-sm"  type="text" /></td>
+                    <input id="spouseemployerbusinessaddress" name="spouseemployerbusinessaddress" value="<?php echo $family->SpouseEmployerAddress; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>TELEPHONE NO.</td>
                 <td>
-                    <input id="spousecontactno" name="spousecontactno" class="form-control input-sm"  type="text" /></td>
+                    <input id="spousecontactno" name="spousecontactno" value="<?php echo $family->SpouseContactNo; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>FATHER&#39;S SURNAME</td>
                 <td>
-                    <input id="fathersurname" name="fathersurname" class="form-control input-sm"  type="text" /></td>
+                    <input id="fathersurname" name="fathersurname" value="<?php echo $family->FatherSurname; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>FIRST NAME</td>
                 <td>
-                    <input id="fatherfirstname" name="fatherfirstname" class="form-control input-sm"  type="text" /></td>
+                    <input id="fatherfirstname" name="fatherfirstname" value="<?php echo $family->FatherFirstname; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>MIDDLE NAME</td>
                 <td>
-                    <input id="fathermiddlename" name="fathermiddlename" class="form-control input-sm"  type="text" /></td>
+                    <input id="fathermiddlename" name="fathermiddlename" value="<?php echo $family->FatherMiddlename; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>MOTHER&#39;S MAIDEN NAME</td>
                 <td>
-                    <input id="mothermaidenname" name="mothermaidenname" class="form-control input-sm"  type="text" /></td>
+                    <input id="mothermaidenname" name="mothermaidenname" value="<?php echo $family->MotherMaidenName; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>SURNAME</td>
                 <td>
-                    <input id="mothersurname" name="mothersurname" class="form-control input-sm"  type="text" /></td>
+                    <input id="mothersurname" name="mothersurname" value="<?php echo $family->MotherLastname; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>FIRST NAME</td>
                 <td>
-                    <input id="motherfirstname" name="motherfirstname" class="form-control input-sm"  type="text" /></td>
+                    <input id="motherfirstname" name="motherfirstname" value="<?php echo $family->MotherFirstname; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             <tr>
                 <td>MIDDLE NAME</td>
                 <td>
-                    <input id="mothermiddlename" name="mothermiddlename" class="form-control input-sm"  type="text" /></td>
+                    <input id="mothermiddlename" name="mothermiddlename" value="<?php echo $family->MotherMiddlename; ?>"  class="form-control input-sm"  type="text" /></td>
             </tr>
             </table>
 
@@ -240,7 +253,7 @@
                 </tr>
                 <tr>
                     <td colspan="4"><input name="addeducationalbackgroundbutton" id="addeducationalbackgroundbutton" class="btn btn-primary" type="button" value="Add Educational Background" /></td>
-                    <input type="hidden" id="educationhidden" name="educationhidden" />
+                    <input type="hidden" id="educationhidden" name="educationhidden" value='<?php echo json_encode($education); ?>' />
                 </tr>
                 <tr>
                 	<td colspan="4">
@@ -317,7 +330,7 @@
                 <tr>
                     <td colspan="6">
                         <input id="addcivileligibilitybutton" name="addcivileligibilitybutton" type="button" class="btn btn-primary" value="Add Civil Service" /></td>
-                        <input type="hidden" id="civilservicehidden" name="civilservicehidden" ></input>
+                        <input type="hidden" id="civilservicehidden" name="civilservicehidden" value='<?php echo json_encode($civilservice); ?>' ></input>
                 </tr>
                 <tr>
                 	<td colspan="6">
@@ -379,7 +392,7 @@
                 <tr>
                     <td colspan="8">
                         <input id="addworkexpbutton" name="addworkexpbutton" type="button" class="btn btn-primary" value="Add Work Experience" /></td>
-                        <input type="hidden" id="workexphidden" name="workexphidden" />
+                        <input type="hidden" id="workexphidden" name="workexphidden" value='<?php echo json_encode($workexp); ?>' />
                 </tr>
                 <tr>
                 	<td colspan="8">
@@ -441,7 +454,7 @@
                 </tr>
                 <tr>
                     <td colspan="5"><input id="addvoluntaryworkbutton" name="addvoluntaryworkbutton" class="btn btn-primary" type="button" value="Add Voluntary Work" /></td>
-                    <input type="hidden" id="voluntaryworkhidden" name="voluntaryworkhidden" ></input>
+                    <input type="hidden" id="voluntaryworkhidden" name="voluntaryworkhidden" value='<?php echo json_encode($vwork); ?>' ></input>
                 </tr>
                 <tr>
                 	<td colspan="5">
@@ -494,7 +507,7 @@
                 </tr>
                 <tr>
                     <td colspan="5"><input id="addtraningprogrambutton" name="addtraningprogrambutton" class="btn btn-primary" type="button" value="Add Training Program" /></td>
-                    <input type="hidden" id="trainingprogramhidden" name="trainingprogramhidden" />
+                    <input type="hidden" id="trainingprogramhidden" name="trainingprogramhidden" value='<?php echo json_encode($training); ?>' />
                 </tr>
                 <tr>
                 	<td colspan="5">
@@ -548,7 +561,7 @@
                 </tr>
                 <tr>
                     <td colspan="3"><input id="addotherinfobutton" name="addotherinfobutton" type="button" class="btn btn-primary" value="Add Other Information" /></td>
-                    <input type="hidden" id="otherinfohidden" name="otherinfohidden" />
+                    <input type="hidden" id="otherinfohidden" name="otherinfohidden" value='<?php echo json_encode($other); ?>' />
                 </tr>
                 <tr>
                 	<td colspan="3">
@@ -600,14 +613,14 @@
                        a. Within the third degree (for National Government Employees): appointing authority, recommending authority, chief of office/bureau/department or person who has immediate supervision over you in the Office, Bureau or Department where you will be appointed?
                     </td>
                     <td colspan="2">                       
-                        <input id="q36ayes" value="Yes" name="q36aans" type="radio" /> Yes 
-                        <input id="q36ano" value="No" name="q36aans" type="radio" /> No 
+                        <input id="q36ayes" value="Yes" <?php if($question->Q36aAns == "Yes") { echo 'checked'; }?> name="q36aans" type="radio" /> Yes 
+                        <input id="q36ano" value="No" <?php if($question->Q36aAns == "No") { echo 'checked'; }?>  name="q36aans" type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q36adetails" name="q36adetails" type="text" />
+                        <input id="q36adetails" name="q36adetails" value='<?php echo $question->Q36aDetails; ?>' type="text" />
                     </td>
                 </tr>
                 <tr>
@@ -615,14 +628,14 @@
                        b. Within the fourth degree (for Local Government Employees): appointing authority or recommending authority where you will be appointed?
                     </td>
                     <td colspan="2">                       
-                        <input id="q36byes" value="Yes" name="q36bans" type="radio" /> Yes 
-                        <input id="q36bno" value="No" name="q36bans" type="radio" /> No 
+                        <input id="q36byes" value="Yes" name="q36bans" <?php if($question->Q36bAns == "Yes") { echo 'checked'; }?> type="radio" /> Yes 
+                        <input id="q36bno" value="No" name="q36bans" <?php if($question->Q36bAns == "No") { echo 'checked'; }?> type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q36bdetails" name="q36bdetails" type="text" />
+                        <input id="q36bdetails" name="q36bdetails" value='<?php echo $question->Q36bDetails; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -631,14 +644,14 @@
                        a. Have you ever been formally charged?
                     </td>
                     <td colspan="2">                       
-                        <input id="q37ayes" value="Yes" name="q37aans" type="radio" /> Yes 
-                        <input id="q37ano" value="No" name="q37aans" type="radio" /> No 
+                        <input id="q37ayes" value="Yes" name="q37aans" <?php if($question->Q37aAns == "Yes") { echo 'checked'; }?> type="radio" /> Yes 
+                        <input id="q37ano" value="No" name="q37aans" <?php if($question->Q37aAns == "No") { echo 'checked'; }?> type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q37adetails" name="q37adetails" type="text" />
+                        <input id="q37adetails" name="q37adetails" value='<?php echo $question->Q37aDetails; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -647,14 +660,14 @@
                        b. Have you ever been guilty of any administrative offense?
                     </td>
                     <td colspan="2">                       
-                        <input id="q37byes" value="Yes" name="q37bans" type="radio" /> Yes 
-                        <input id="q37bno" value="No" name="q37bans" type="radio" /> No 
+                        <input id="q37byes" value="Yes" name="q37bans"  <?php if($question->Q37bAns == "Yes") { echo 'checked'; }?>  type="radio" /> Yes 
+                        <input id="q37bno" value="No" name="q37bans" <?php if($question->Q37bAns == "No") { echo 'checked'; }?>  type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q37bdetails" name="q37bdetails" type="text" />
+                        <input id="q37bdetails" name="q37bdetails"  value='<?php echo $question->Q37bDetails; ?>'  type="text" />
                     </td>
                 </tr>
 
@@ -663,14 +676,14 @@
                        Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
                     </td>
                     <td colspan="2">                       
-                        <input id="q38yes" value="Yes" name="q38ans" type="radio" /> Yes 
-                        <input id="q38no" value="No" name="q38ans" type="radio" /> No 
+                        <input id="q38yes" value="Yes" name="q38ans" <?php if($question->Q38Ans == "Yes") { echo 'checked'; }?>  type="radio" /> Yes 
+                        <input id="q38no" value="No" name="q38ans" <?php if($question->Q38Ans == "No") { echo 'checked'; }?>  type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q38details" name="q38details" type="text" />
+                        <input id="q38details" name="q38details" value='<?php echo $question->Q38Details; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -679,14 +692,14 @@
                        Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract, AWOL or phased out, in the public or private sector?
                     </td>
                     <td colspan="2">                       
-                        <input id="q39yes" value="Yes" name="q39ans" type="radio" /> Yes 
-                        <input id="q39no" value="No" name="q39ans" type="radio" /> No 
+                        <input id="q39yes" value="Yes" name="q39ans" <?php if($question->Q39Ans == "Yes") { echo 'checked'; }?>  type="radio" /> Yes 
+                        <input id="q39no" value="No" name="q39ans" <?php if($question->Q39Ans == "No") { echo 'checked'; }?>  type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q39details" name="q39details" type="text" />
+                        <input id="q39details" name="q39details" value='<?php echo $question->Q39Details; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -695,14 +708,14 @@
                        Have you ever been a candidate in a national or local election (except Barangay election)?
                     </td>
                     <td colspan="2">                       
-                        <input id="q40yes" value="Yes" name="q40ans" type="radio" /> Yes 
-                        <input id="q40no" value="No" name="q40ans" type="radio" /> No 
+                        <input id="q40yes" value="Yes" name="q40ans" <?php if($question->Q40Ans == "Yes") { echo 'checked'; }?> type="radio" /> Yes 
+                        <input id="q40no" value="No" name="q40ans" <?php if($question->Q40Ans == "No") { echo 'checked'; }?> type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q40details" name="q40details" type="text" />
+                        <input id="q40details" name="q40details" value='<?php echo $question->Q40Details; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -715,14 +728,14 @@
                        Are you a member of any indigenous group?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41ayes" value="Yes" name="q41aans" type="radio" /> Yes 
-                        <input id="q41ano" value="No" name="q41aans" type="radio" /> No 
+                        <input id="q41ayes" value="Yes" name="q41aans" <?php if($question->Q41aAns == "Yes") { echo 'checked'; }?> type="radio" /> Yes 
+                        <input id="q41ano" value="No" name="q41aans" <?php if($question->Q41aAns == "No") { echo 'checked'; }?> type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41adetails"  name="q41adetails" type="text" />
+                        <input id="q41adetails"  name="q41adetails" value='<?php echo $question->Q41aDetails; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -731,14 +744,14 @@
                        Are you differently abled?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41byes" value="Yes" name="q41bans" type="radio" /> Yes 
-                        <input id="q41bno" value="No" name="q41bans" type="radio" /> No 
+                        <input id="q41byes" value="Yes" name="q41bans"  <?php if($question->Q41bAns == "Yes") { echo 'checked'; }?>  type="radio" /> Yes 
+                        <input id="q41bno" value="No" name="q41bans"  <?php if($question->Q41bAns == "No") { echo 'checked'; }?>  type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41bdetails"  name="q41bdetails" type="text" />
+                        <input id="q41bdetails"  name="q41bdetails"  value='<?php echo $question->Q41bDetails; ?>' type="text" />
                     </td>
                 </tr>
 
@@ -747,14 +760,14 @@
                        Are you a solo parent?
                     </td>
                     <td colspan="2">                       
-                        <input id="q41cyes" value="Yes" name="q41cans" type="radio" /> Yes 
-                        <input id="q41cno" value="No" name="q41cans" type="radio" /> No 
+                        <input id="q41cyes" value="Yes" name="q41cans" <?php if($question->Q41cAns == "Yes") { echo 'checked'; }?> type="radio" /> Yes 
+                        <input id="q41cno" value="No" name="q41cans" <?php if($question->Q41cAns == "No") { echo 'checked'; }?> type="radio" /> No 
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         If YES, give details
-                        <input id="q41cdetails" name="q41cdetails" type="text" />
+                        <input id="q41cdetails" name="q41cdetails" value='<?php echo $question->Q41cDetails; ?>' type="text" />
                     </td>
                 </tr>
             </table>
@@ -765,7 +778,7 @@
                 </tr>
                 <tr>
                     <td colspan="3"><input id="addreferencebutton" class="btn btn-primary" type="button" value="Add Reference" /></td>
-                    <input type="hidden" id="referenceshidden" name="referenceshidden" />
+                    <input type="hidden" id="referenceshidden" name="referenceshidden" value='<?php echo json_encode($reference); ?>' />
                 </tr>
                 <tr>
                 	<td colspan="3">
@@ -814,25 +827,25 @@
                 </tr>
                 <tr>
                     <td>COMMUNITY TAX CERTIFICATE NO.</td>
-                    <td><input id="communitytaxcertno" name="communitytaxcertno" type="text" /></td>
+                    <td><input id="communitytaxcertno" name="communitytaxcertno" value="<?php echo $question->CommunityTaxCertNo; ?>" type="text" /></td>
                     <td>ISSUED AT</td>
-                    <td><input id="issuedat" name="issuedat" type="text" /></td>
+                    <td><input id="issuedat" name="issuedat" value="<?php echo $question->IssuedAt; ?>" type="text" /></td>
                 </tr>
                 <tr>
                     <td>ISSUED ON (mm/dd/yyyy)</td>
-                    <td><input id="issuedon" name="issuedon" type="text" /></td>
+                    <td><input id="issuedon" name="issuedon" value="<?php echo $question->IssuedOn; ?>" type="text" /></td>
                     <td>DATE ACCOMPLISHED</td>
-                    <td><input id="dateaccomplished" name="dateaccomplished" type="text" /></td>
+                    <td><input id="dateaccomplished" name="dateaccomplished" value="<?php echo $question->DateAccomplished; ?>" type="text" /></td>
                 </tr>
             </table>
         </div>
     </div>
     <hr />
     <div class="buttons-container">
-    	<input type="submit" id="saveall" class="btn btn-primary" value="Save" />
+    	<input type="submit" id="updateall" class="btn btn-primary" value="Update" />
     	<a href="<?php echo site_url("home") ?>" class="btn btn-default">Home</a>
     </div> 
-    <input type="hidden" id="pagetype" value="add"/>
+    <input type="hidden" id="pagetype" value="edit"/>
     </form>
 </body>
 </html>
@@ -871,6 +884,8 @@
 		    $('#childrenhidden').val(JSON.stringify(children));
 		    $('#addchild-modal').modal('hide');		    		 
 		});
+
+		renderchildrenfromdb();
 		//ADD CHILD
 	    
 	    //ADD EDUC BACK
@@ -884,6 +899,7 @@
 		      $('#educationlevel').val('0');
 	    	  $('#degreecourse,#nameofschool,#yeargraduated,#highestgrade,#educationfrom,#educationto,#academichonors').val('');
 	    });
+		rendereducationalbackgroundfromdb();	    
 		//ADD EDUC BACK
 
 		//CIVIL SERVICE
@@ -896,6 +912,7 @@
 	    $('#addcivilservice-modal').on('hide.bs.modal', function (e) {
 			  $('#careerservice,#civilrating,#dateofexam,#placeofexam,#licenseno,#licensereleasedate').val('');
 	    });
+		rendercivilserverfromdb();	    
 	  	//CIVIL SERVICE
 
 		//WORK EXP
@@ -908,6 +925,7 @@
 	    $('#addworkexp-modal').on('hide.bs.modal', function (e) {
 			 $('#workstart,#workend,#positiontitle,#agencyname,#monthlysalary,#salaryincrement,#statusofappointment,#govtservice').val('');
 	    });
+	    renderworkexpfromdb();
 		//WORK EXP  
 
 		//VOLUNTARY WORK
@@ -920,6 +938,7 @@
 	    $('#addvoluntarywork-modal').on('hide.bs.modal', function (e) {
 			  $('#voluntaryworkorg,#voluntaryworkfrom,#voluntaryworkto,#voluntaryworkhours,#voluntaryworknature').val('');
 	    });
+	    rendervoluntaryworkfromdb();
 		//VOLUNTARY WORK
 
 		//TRAINING PROGRAM
@@ -932,6 +951,7 @@
 	    $('#addtraningprogram-modal').on('hide.bs.modal', function (e) {
 			 $('#titleofseminar,#trainingfrom,#trainingto,#traininghours,#trainingconducted').val('');
 	    });
+	    rendertrainingprogramfromdb();
 		//TRAINING PROGRAM
 
 		//OTHER INFORMATION
@@ -944,6 +964,7 @@
 	    $('#addotherinfo-modal').on('hide.bs.modal', function (e) {
 			  $('#specialskills,#nonacademicdistinction,#membershipassoc').val('');			 
 	    });
+	    renderotherinfofromdb();
 		//OTHER INFORMATION
 
 		//REFERENCE
@@ -956,11 +977,12 @@
 	    $('#addreference-modal').on('hide.bs.modal', function (e) {
 			  $('#referencename,#referenceaddress,#referencecontact').val('');			 
 	    });
+	    renderreferencefromdb();
 	  //REFERENCE
 
 		  //DEFAULT
-		  $('#maleradio').prop('checked', true);
-		  $('#singleradio').prop('checked', true);
+		 // $('#maleradio').prop('checked', true);
+		 // $('#singleradio').prop('checked', true);
 	});
 
 

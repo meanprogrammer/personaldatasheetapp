@@ -27,4 +27,17 @@ class familybackground_model extends CI_Model {
 		$this->db->insert('familybackground', $this);
 		return $this->db->insert_id();
 	}
+	
+	function getfamilybackgroundbyid($id) {
+		return $this->db->where('ParentID', $id)->get('familybackground');
+	}
+	
+	function update($id) {
+		$this->db->where('ParentID', $id);
+		$this->db->update('familybackground', $this);
+	}
+	
+	function deletebyid($id) {
+		$this->db->where('ParentID', $id)->delete('familybackground');
+	}
 }

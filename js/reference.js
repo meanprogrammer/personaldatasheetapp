@@ -1,9 +1,10 @@
+	var pagetype = $('#pagetype').val();
 	function renderreferences(){
 		if(references.length == 0){
 			$('#reference-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>NAME</th>';
 	    html += '<th>ADDRESS</th>';
@@ -14,14 +15,16 @@
 				html += '<td>' + value.referencename + '</td>';
 				html += '<td>'+ value.referenceaddress +'</td>';
 				html += '<td>'+ value.referencecontact +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deletereference('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
 		$('#reference-container').html(html);
 	}
 	
-	function deletecivilservice(key) {
+	function deletereference(key) {
 
 	    var source = references;
 	    for (var i = 0; i < source.length; i++) {
@@ -51,6 +54,20 @@
 		    
 		  $('#referenceshidden').val(JSON.stringify(references));
 		  $('#addreference-modal').modal('hide');		 
+	}
+	
+	function renderreferencefromdb(){
+		var json_obj = JSON.parse($('#referenceshidden').val());
+		$.each(json_obj, function(k, v) {
+			references.push({
+				  "referencename":v.Name, 
+				  "referenceaddress": v.Address,
+				  "referencecontact": v.ContactNo, 
+				  "tempid": guid()
+			});
+		});
+		$('#referenceshidden').val(JSON.stringify(references));
+		renderreferences();
 	}
 	
 	function S4() {

@@ -14,4 +14,13 @@ class otherinformation_model extends CI_Model {
     function save(){
     	$this->db->insert('otherinformation', $this);
     }
+    
+    function getotherinfobyid($id){
+    	return $this->db->where('ParentID', $id)->get('otherinformation');
+    }
+    
+    function deleteotherinfobyid($id){
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('otherinformation');
+    }
 }

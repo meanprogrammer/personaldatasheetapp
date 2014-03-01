@@ -1,9 +1,10 @@
+	var pagetype = $('#pagetype').val();
 	function rendertrainingprogram(){
 		if(trainingprogram.length == 0){
 			$('#trainingprogram-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>TITLE OF SEMINAR/CONFERENCE/WORKSHOP/SHORT COURSES</th>';
 	    html += '<th>FROM</th>';
@@ -18,14 +19,16 @@
 				html += '<td>'+ value.trainingto +'</td>';
 				html += '<td>'+ value.traininghours +'</td>';
 				html += '<td>'+ value.trainingconducted +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deletetrainingprogram('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
 		$('#trainingprogram-container').html(html);
 	}
 	
-	function deletecivilservice(key) {
+	function deletetrainingprogram(key) {
 
 	    var source = trainingprogram;
 	    for (var i = 0; i < source.length; i++) {
@@ -59,6 +62,22 @@
 		    
 		  $('#trainingprogramhidden').val(JSON.stringify(trainingprogram));
 		  $('#addtraningprogram-modal').modal('hide');		 
+	}
+	
+	function rendertrainingprogramfromdb() {
+		var json_obj = JSON.parse($('#trainingprogramhidden').val());
+		$.each(json_obj, function(k, v) {
+			trainingprogram.push({
+				  "titleofseminar":v.TrainingTitle, 
+				  "trainingfrom": v.StartDate,
+				  "trainingto": v.EndDate, 
+				  "traininghours": v.NumberOfHours, 
+				  "trainingconducted": v.ConductedSponsoredBy, 
+				  "tempid": guid()
+			});
+		});
+		$('#trainingprogramhidden').val(JSON.stringify(trainingprogram));
+		rendertrainingprogram();
 	}
 	
 	function S4() {

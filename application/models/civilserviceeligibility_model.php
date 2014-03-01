@@ -17,4 +17,13 @@ class civilserviceeligibility_model extends CI_Model {
     function save(){
     	$this->db->insert('civilserviceeligibility', $this);
     }
+    
+    function getcivilservicebyid($id){
+    	return $this->db->where('ParentID', $id)->get('civilserviceeligibility');
+    }
+    
+    function deletecivilservicebyid($id){
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('civilserviceeligibility');
+    }
 }

@@ -16,4 +16,13 @@ class voluntaryworks_model extends CI_Model {
     function save(){
     	$this->db->insert('voluntaryworks', $this);
     }
+    
+    function getvoluntaryworkbyid($id) {
+    	return $this->db->where('ParentID', $id)->get('voluntaryworks');
+    }
+    
+    function deletevoluntaryworkbyid($id){
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('voluntaryworks');
+    }
 }

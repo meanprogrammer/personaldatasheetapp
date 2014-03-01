@@ -1,9 +1,10 @@
-	function rendercivilservice(){
+var pagetype = $('#pagetype').val();
+function rendercivilservice(){
 		if(civilservice.length == 0){
 			$('#civilservice-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>CAREER SERVICE/ RA 1080 (BOARD/ BAR) UNDER SPECIAL LAWS/ CES/ CSEE</th>';
 	    html += '<th>RATING</th>';
@@ -20,7 +21,9 @@
 				html += '<td>'+ value.placeofexam +'</td>';
 				html += '<td>'+ value.licenseno +'</td>';
 				html += '<td>'+ value.licensereleasedate +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
@@ -63,6 +66,23 @@
 		    
 		  $('#civilservicehidden').val(JSON.stringify(civilservice));
 		  $('#addcivilservice-modal').modal('hide');		 
+	}
+
+	function rendercivilserverfromdb(){
+		var json_obj = JSON.parse($('#civilservicehidden').val());
+		$.each(json_obj, function(k, v) {
+			civilservice.push({
+				  "careerservice":v.CareerService, 
+				  "civilrating": v.Rating,
+				  "dateofexam": v.DateOfExam, 
+				  "placeofexam": v.PlaceOfExam, 
+				  "licenseno": v.ExamNo, 
+				  "licensereleasedate": v.DateOfRelease,
+				  "tempid": guid()
+			});
+		});
+		$('#civilservicehidden').val(JSON.stringify(civilservice));
+		rendercivilservice();
 	}
 	
 	function S4() {

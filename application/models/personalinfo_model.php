@@ -39,4 +39,21 @@ class personalinfo_model extends CI_Model
 		$this->db->insert('personalinfo', $this);
 		return $this->db->insert_id();
 	}
+	
+	function getbyid($id){
+		return  $this->db->where('RecordID', $id)->get('personalinfo');
+	}
+	
+	function update($id) {
+		$this->db->where('RecordID', $id);
+		$this->db->update('personalinfo', $this);
+	}
+	
+	function getall(){
+		return $this->db->get('personalinfo');
+	}
+	
+	function deletebyid($id) {
+		$this->db->where('RecordID', $id)->delete('personalinfo');
+	}
 }

@@ -1,9 +1,10 @@
+var pagetype = $('#pagetype').val();
 	function rendereducationalbackground(){
 		if(educationalbackground.length == 0){
 			$('#educational-background-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>LEVEL</th>';
 	    html += '<th>NAME OF SCHOOL</th>';
@@ -24,7 +25,9 @@
 				html += '<td>'+ value.educationfrom +'</td>';
 				html += '<td>'+ value.educationto +'</td>';
 				html += '<td>'+ value.academichonors +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deleteeducationalbackground('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deleteeducationalbackground('"+value.tempid+"')\">Delete</a></td>";	
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
@@ -71,6 +74,25 @@
 		    
 		  $('#educationhidden').val(JSON.stringify(educationalbackground));
 		  $('#addeducation-modal').modal('hide');		 
+	}
+	
+	function rendereducationalbackgroundfromdb() {
+		var json_obj = JSON.parse($('#educationhidden').val());
+		$.each(json_obj, function(k, v) {
+			educationalbackground.push({
+				  "educationlevel":v.Level, 
+				  "nameofschool": v.NameOfSchool,
+				  "degreecourse": v.DegreeCourse, 
+				  "yeargraduated": v.YearGraduated, 
+				  "highestgrade": v.HighestGradeLevelUnitsEarned, 
+				  "educationfrom": v.DateFrom, 
+				  "educationto": v.DateTo, 
+				  "academichonors": v.ScholarshipAcademicHonorRecieved,
+				  "tempid": guid()
+			});
+		});
+		$('#educationhidden').val(JSON.stringify(educationalbackground));
+		rendereducationalbackground();
 	}
 	
 	function S4() {

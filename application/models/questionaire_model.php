@@ -35,4 +35,17 @@ class questionaire_model extends CI_Model {
     function save(){
     	$this->db->insert('questionaire', $this);
     }
+    
+    function getquestionairebyid($id) {
+    	return $this->db->where('ParentID', $id)->get('questionaire');
+    }
+    
+	function update($id) {
+		$this->db->where('ParentID', $id);
+		$this->db->update('questionaire', $this);
+	}
+	
+	function deletebyid($id) {
+		$this->db->where('ParentID', $id)->delete('questionaire');
+	}
 }

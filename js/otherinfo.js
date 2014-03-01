@@ -1,9 +1,10 @@
+	var pagetype = $('#pagetype').val();
 	function renderotherinfo(){
 		if(otherinfo.length == 0){
 			$('#otherinfo-container').html('');
 			return;
 		}
-	    var html = '<table class="table table-bordered">';
+	    var html = '<table class="table table-bordered table-striped">';
 	    html += '<tr>';
 	    html += '<th>SPECIAL SKILLS / HOBBIES:</th>';
 	    html += '<th>NON-ACADEMIC DISTINCTIONS / RECOGNITION:(Write in full)</th>';
@@ -14,14 +15,16 @@
 				html += '<td>' + value.specialskills + '</td>';
 				html += '<td>'+ value.nonacademicdistinction +'</td>';
 				html += '<td>'+ value.membershipassoc +'</td>';
-				html += "<td><a class='btn btn-danger' onclick=\"deletecivilservice('"+value.tempid+"')\">Delete</a></td>"; 
+				if(pagetype != 'detail') {
+					html += "<td><a class='btn btn-danger' onclick=\"deleteotherinfo('"+value.tempid+"')\">Delete</a></td>";
+				}
 			html += '</tr>';
 		});
 	    html += '</table>';
 		$('#otherinfo-container').html(html);
 	}
 	
-	function deletecivilservice(key) {
+	function deleteotherinfo(key) {
 
 	    var source = otherinfo;
 	    for (var i = 0; i < source.length; i++) {
@@ -52,6 +55,20 @@
 		  $('#otherinfohidden').val(JSON.stringify(otherinfo));
 		  $('#addotherinfo-modal').modal('hide');		 
 	}
+	
+	function renderotherinfofromdb() {
+		var json_obj = JSON.parse($('#otherinfohidden').val());
+		$.each(json_obj, function(k, v) {
+			otherinfo.push({
+				  "specialskills":v.SpecicalSkillsHobbies, 
+				  "nonacademicdistinction": v.NonAcademicDistinctionRecognition,
+				  "membershipassoc": v.OrganizationMembership, 
+				  "tempid": guid()
+			});
+		});
+		$('#otherinfohidden').val(JSON.stringify(otherinfo));
+		renderotherinfo();
+	} 
 	
 	function S4() {
 		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);

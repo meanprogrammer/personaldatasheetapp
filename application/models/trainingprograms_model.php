@@ -16,4 +16,13 @@ class trainingprograms_model extends CI_Model {
     function save(){
     	$this->db->insert('trainingprograms', $this);
     }
+    
+    function gettrainingprogrambyid($id) {
+    	return  $this->db->where('ParentID', $id)->get('trainingprograms');
+    }
+    
+    function deletetrainingprogrambyid($id){
+    	$this->db->where('ParentID', $id);
+    	$this->db->delete('trainingprograms');
+    }
 }

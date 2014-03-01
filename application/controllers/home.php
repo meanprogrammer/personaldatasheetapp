@@ -4,6 +4,12 @@ class Home extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('home_page');
+		$data['pinfo'] = $this->getallpds();
+		$this->load->view('home_page', $data);
+	}
+	
+	function getallpds(){
+		$this->load->model('personalinfo_model');
+		return  $this->personalinfo_model->getall();
 	}
 }
