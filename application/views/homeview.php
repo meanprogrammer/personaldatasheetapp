@@ -22,7 +22,7 @@
    	<div class="container-fluid">
    	<table class="table table-bordered table-striped">
    	<tr>
-   		<td colspan="4"></td>
+   		<td colspan="3"></td>
    		<td>Surname</td>
    		<td>Firstname</td>
    		<td>Middlename</td>
@@ -37,7 +37,7 @@
 	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("pds/detail/").'/'.$p->RecordID; ?>">Detail</a></td>
 	   			<td width="30"><a class="btn btn-primary btn-sm"  href="<?php echo site_url("pds/edit/").'/'.$p->RecordID; ?>">Edit</a></td>
 	   			<td width="30"><a class="btn btn-danger btn-sm" onclick="return beforedelete();" href="<?php echo site_url("pds/delete/").'/'.$p->RecordID; ?>">Delete</a></td>
-	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("printpdf/index"); ?>">Print PDF</a></td>
+	   			<!-- <td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("printpdf/index"); ?>">Print PDF</a></td> -->
 	   			<td><?php echo $p->Surname; ?></td>
 	   			<td><?php echo $p->Firstname; ?></td>
 	   			<td><?php echo $p->Middlename; ?></td>
