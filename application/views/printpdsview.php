@@ -28,22 +28,8 @@
 	?>
 	<div class="page-header custom-header">
 	  <h1>ICS - Personal Data Sheet</h1>
-	</div>
-		<div class="logout-container">
-		<div class="btn-group">
-		  <button type="button" class="btn btn-default" />Welcome, <?php echo $this->session->userdata('Username');?></button>
-		  <a class="btn btn-danger" href="<?php echo site_url('login/logout');?>">Log Out</a>
-		</div>
-	</div>
-    <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#page1" data-toggle="tab">Page 1</a></li>
-      <li><a href="#page2" data-toggle="tab">Page 2</a></li>
-      <li><a href="#page3" data-toggle="tab">Page 3</a></li>
-      <li><a href="#page4" data-toggle="tab">Page 4</a></li>
-    </ul>
-    <form method="post" id="mainform" action="<?php echo site_url("pds/update/").'/'.$currentid ?>" >
-    <div class="tab-content">
-        <div class="tab-pane active first-tab" id="page1">
+  
+        <a class="btn btn-info" onclick="return window.print();">Print</a><br />
             <table class="table table-bordered">
             <tr>
                 <th colspan="4">PERSONAL INFORMATION</th>
@@ -233,8 +219,7 @@
                 </tr>
             </table>
             <input type="hidden" id="educationhidden" name="educationhidden" value='<?php echo json_encode($education); ?>' />
-        </div>
-        <div class="tab-pane fade second-tab" id="page2">
+         
             <table class="table table-bordered">
                 <tr>
                     <th colspan="6">CIVIL SERVICE ELIGIBILITY</th>
@@ -258,8 +243,7 @@
                 </tr>
             </table>
             <input type="hidden" id="workexphidden" name="workexphidden" value='<?php echo json_encode($workexp); ?>' />
-        </div>
-        <div class="tab-pane fade third-tab" id="page3">
+        
             <table class="table table-bordered">
                 <tr>
                     <th colspan="5">VOLUNTARY WORK OR INVOLVEMENT IN CIVIC / NON-GOVERNMENT / PEOPLE / VOLUNTARY ORGANIZATION/S</th>
@@ -298,8 +282,6 @@
             </table>
             <input type="hidden" id="otherinfohidden" name="otherinfohidden" value='<?php echo json_encode($other); ?>' />
             
-        </div>
-        <div class="tab-pane fade fourth-tab" id="page4">
             <table class="table table-bordered">
                 <tr>
                     <td colspan="4">Are you related by consanguinity or affinity to any of the following : </td>
@@ -489,16 +471,14 @@
                     <td><?php echo $question->DateAccomplished; ?></td>
                 </tr>
             </table>
-        </div>
-    </div>
+        
     <hr />
     <div class="buttons-container">
-    	<!-- <input type="submit" id="updateall" class="btn btn-primary btn-md" value="Update" /> -->
+    	<!-- <input type="submit" id="updateall" class="btn btn-primary btn-md" value="Update" />
     	<a href="<?php echo site_url('pds/edit/'.$currentid)?>" class="btn btn-primary btn-md">Edit</a>
-    	<a href="<?php echo site_url("home") ?>" class="btn btn-default btn-md">Home</a>
+    	<a href="<?php echo site_url("home") ?>" class="btn btn-default btn-md">Home</a> -->
     </div> 
     <input type="hidden" id="pagetype" value="detail"/>
-    </form>
 </body>
 </html>
 <script type="text/javascript">

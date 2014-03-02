@@ -10,7 +10,7 @@
 		if(!$this->session->userdata('UserID')){ redirect('login/index'); }
 	?>
 	<div class="page-header custom-header">
-	  <h1>Personal Data Sheet</h1>
+	  <h1>ICS - Personal Data Sheet</h1>
 	</div>
 	<div class="logout-container">
 		<div class="btn-group">
@@ -22,6 +22,7 @@
    		<div class="well" style="margin: 0 auto;width: 300px;">
    			<?php if($this->session->userdata('AssociatedPDS') > 0) {?>
    				<a href="<?php echo site_url('pds/edit/'.$this->session->userdata('AssociatedPDS'));?>" class="btn btn-primary btn-lg btn-block">Edit My PDS</a>
+   				<a href="<?php echo site_url('pds/detail/'.$this->session->userdata('AssociatedPDS'));?>" class="btn btn-primary btn-lg btn-block">View PDS Detail</a>
    			<?php } else {?>
    				<a class="btn btn-primary btn-lg btn-block" href="<?php echo site_url('pds/index');?>">Add PDS</a>
    			<?php }?>

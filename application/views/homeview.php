@@ -11,7 +11,7 @@
 		$personals = $pinfo->result(); 
 	?>
 	<div class="page-header custom-header">
-	  <h1>Personal Data Sheet</h1>
+	  <h1>ICS - Personal Data Sheet</h1>
 	</div>
 	<div class="logout-container">
 		<div class="btn-group">
@@ -22,7 +22,7 @@
    	<div class="container-fluid">
    	<table class="table table-bordered table-striped">
    	<tr>
-   		<td colspan="3"></td>
+   		<td colspan="4"></td>
    		<td>Surname</td>
    		<td>Firstname</td>
    		<td>Middlename</td>
@@ -30,6 +30,7 @@
    		<td>Birthdate</td>
    		<td>Sex</td>
    		<td>Civil Status</td>
+   		<td>Owned By</td>
    	</tr>
 	   	<?php foreach ($personals as $p) {
 	   		?>
@@ -37,7 +38,7 @@
 	   			<td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("pds/detail/").'/'.$p->RecordID; ?>">Detail</a></td>
 	   			<td width="30"><a class="btn btn-primary btn-sm"  href="<?php echo site_url("pds/edit/").'/'.$p->RecordID; ?>">Edit</a></td>
 	   			<td width="30"><a class="btn btn-danger btn-sm" onclick="return beforedelete();" href="<?php echo site_url("pds/delete/").'/'.$p->RecordID; ?>">Delete</a></td>
-	   			<!-- <td width="30"><a class="btn btn-default btn-sm" href="<?php echo site_url("printpdf/index"); ?>">Print PDF</a></td> -->
+	   			<td width="30"><a class="btn btn-default btn-sm" onclick="return print('<?php echo site_url('pds/detail/').'/'.$p->RecordID.'/printpdsview';?>');">Print</a></td>
 	   			<td><?php echo $p->Surname; ?></td>
 	   			<td><?php echo $p->Firstname; ?></td>
 	   			<td><?php echo $p->Middlename; ?></td>
@@ -45,6 +46,7 @@
 	   			<td><?php echo $p->DateOfBirth; ?></td>
 	   			<td><?php echo $p->Sex; ?></td>
 	   			<td><?php echo $p->CivilStatus; ?></td>
+	   			<td><?php echo $p->Username; ?></td>
 	   		</tr>
 	   		<?php 
 	   	}?>
@@ -60,5 +62,9 @@
 			}
 			else
 			{ return false; }
+		}
+
+		function print(url){
+			window.open(url, '_blank', 'fullscreen=yes,location=no,scrollbars=yes', false);
 		}
 	</script>

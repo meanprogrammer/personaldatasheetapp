@@ -39,4 +39,9 @@ class printpdf extends  CI_Controller {
 	        $this->fpdf->Ln();
 	    }
 	}
+	
+	function tempoprint(){
+		$id = $this->uri->segment(3);
+		$this->load->view('printpdsview');
+	}
 }

@@ -50,10 +50,15 @@ class personalinfo_model extends CI_Model
 	}
 	
 	function getall(){
-		return $this->db->get('personalinfo');
+		$this->db->select('personalinfo.*,user.Username');
+		$this->db->from('personalinfo');
+		$this->db->join('user','user.AssociatedPDS = personalinfo.RecordID','left');
+		return $this->db->get();
 	}
 	
 	function deletebyid($id) {
 		$this->db->where('RecordID', $id)->delete('personalinfo');
 	}
+	
+	
 }

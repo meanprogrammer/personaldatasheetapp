@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="page-header custom-header">
-	  <h1>Personal Data Sheet</h1>
+	  <h1>ICS - Personal Data Sheet</h1>
 	</div>
 		<div class="logout-container">
 		<div class="btn-group">
@@ -810,7 +810,21 @@
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->   
-
+			
+			<table class="table table-bordered">
+				<tr>
+					<td>Photo</td>
+					<td><input type="file" id="photofile" name="photofile" class="form-control" /></td>
+				</tr>
+				<tr>
+					<td>Thumbmark</td>
+					<td><input type="file" id="thumbmarkfile" name="thumbmarkfile" class="form-control" /></td>
+				</tr>
+				<tr>
+					<td>Signature</td>
+					<td><input type="file" id="signaturefile" name="signaturefile" class="form-control" /></td>
+				</tr>
+			</table>
             <table class="table table-bordered">
                 <tr>
                     <td colspan="4">

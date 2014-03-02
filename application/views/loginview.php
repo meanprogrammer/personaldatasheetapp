@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="page-header custom-header">
-	  <h1>Personal Data Sheet</h1>
+	  <h1>ICS - Personal Data Sheet</h1>
 	</div>
    	<div class="container-fluid">
    		<form method="post" action="<?php echo site_url('login/dologin');?>" >

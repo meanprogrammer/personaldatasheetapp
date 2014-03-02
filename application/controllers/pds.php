@@ -14,7 +14,8 @@ class Pds extends CI_Controller {
 	}
 	
 	function detail(){
-		$id = $this->uri->segment(3);;
+		$id = $this->uri->segment(3);
+		$view = $this->uri->segment(4);
 		$data['pinfo'] = $this->getpersonalinfobyid($id);
 		$familybackground = $this->getfamilybackgroundbyid($id); 
 		$data['family'] = $familybackground;
@@ -29,7 +30,11 @@ class Pds extends CI_Controller {
 		$data['reference'] = $this->getreferencebyid($id);
 		$data['question'] =  $this->getquestionairebyid($id);
 		$data['currentid'] = $id;
-		$this->load->view('detailspdsview', $data);
+		if($view == '') {
+			$this->load->view('detailspdsview', $data);
+		} else {
+			$this->load->view($view, $data);
+		}
 	}
 	
 	function savepds() {
